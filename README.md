@@ -1,0 +1,108 @@
+# ð Enrollment Status and Schedule System
+
+admins = {"admin1": "admin123"}
+students = {}
+
+def admin_portal():
+    print("\n--- ADMIN PORTAL ---")
+    print("1. Add Student Record")
+    print("2. View All Records")
+    print("3. Logout")
+
+    while True:
+        choice = input("\nEnter your choice: ")
+
+        if choice == "1":
+            add_student()
+        elif choice == "2":
+            view_records()
+        elif choice == "3":
+            print("Logging out...")
+            break
+        else:
+            print("Invalid choice. Try again.")
+
+def add_student():
+    print("\n--- Add Student Enrollment Record ---")
+    stud_id = input("Enter Student ID: ")
+    stud_name = input("Enter Student Name: ")
+    course = input("Enter Course: ")
+    year = input("Enter Year Level: ")
+    status = input("Enrollment Status (Enrolled/Not Enrolled): ")
+    mode = input("Mode of Class (Online/F2F): ")
+    subjects = input("List of Subjects (separate by comma): ")
+    schedule = input("Class Schedule (e.g., MWF 9:00-11:00AM): ")
+
+    students[stud_id] = {
+        "name": stud_name,
+        "course": course,
+        "year": year,
+        "status": status,
+        "mode": mode,
+        "subjects": subjects,
+        "schedule": schedule
+    }
+
+    print(f"\nâ Record added for {stud_name} ({stud_id})")
+
+def view_records():
+    if not students:
+        print("\nNo student records found.")
+        return
+
+    print("\n--- ALL STUDENT RECORDS ---")
+    for stud_id, data in students.items():
+        print(f"\nID: {stud_id}")
+        print(f"Name: {data['name']}")
+        print(f"Course: {data['course']} ({data['year']})")
+        print(f"Status: {data['status']}")
+        print(f"Mode: {data['mode']}")
+        print(f"Subjects: {data['subjects']}")
+        print(f"Schedule: {data['schedule']}")
+        print("-" * 40)
+
+def student_portal():
+    print("\n--- STUDENT PORTAL ---")
+    stud_id = input("Enter your Student ID: ")
+
+    if stud_id in students:
+        data = students[stud_id]
+        print(f"\nWelcome, {data['name']}!")
+        print(f"Course: {data['course']} ({data['year']})")
+        print(f"Enrollment Status: {data['status']}")
+        print(f"Mode: {data['mode']}")
+        print(f"Subjects: {data['subjects']}")
+        print(f"Schedule: {data['schedule']}")
+    else:
+        print("\nâ No record found for that Student ID. Please contact your admin.")
+
+def main():
+    print("ð WELCOME TO ENROLLMENT STATUS AND SCHEDULE SYSTEM ð")
+
+    while True:
+        print("\nLogin as:")
+        print("1. Admin")
+        print("2. Student")
+        print("3. Exit")
+
+        choice = input("Enter choice: ")
+
+        if choice == "1":
+            username = input("Enter Admin Username: ")
+            password = input("Enter Password: ")
+
+            if username in admins and admins[username] == password:
+                print(f"\nâ Welcome Admin {username}!")
+                admin_portal()
+            else:
+                print("â Invalid Admin Credentials.")
+        elif choice == "2":
+            student_portal()
+        elif choice == "3":
+            print("Exiting program... Goodbye!")
+            break
+        else:
+            print("Invalid choice, please try again.")
+
+# Palihug kog run sa program
+main()
